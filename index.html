@@ -1,0 +1,707 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>할인 캠페인의 성과: 할인 사용 패턴과 구매 행동 변화 탐구</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="176a0841-2618-8088-aa8d-fcd98bdec52d" class="page sans"><header><h1 class="page-title">할인 캠페인의 성과: 할인 사용 패턴과 구매 행동 변화 탐구</h1><p class="page-description"></p><table class="properties"><tbody><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesMultipleSelect"><path d="M1.91602 4.83789C2.44238 4.83789 2.87305 4.40723 2.87305 3.87402C2.87305 3.34766 2.44238 2.91699 1.91602 2.91699C1.38281 2.91699 0.952148 3.34766 0.952148 3.87402C0.952148 4.40723 1.38281 4.83789 1.91602 4.83789ZM5.1084 4.52344H14.3984C14.7607 4.52344 15.0479 4.23633 15.0479 3.87402C15.0479 3.51172 14.7607 3.22461 14.3984 3.22461H5.1084C4.74609 3.22461 4.45898 3.51172 4.45898 3.87402C4.45898 4.23633 4.74609 4.52344 5.1084 4.52344ZM1.91602 9.03516C2.44238 9.03516 2.87305 8.60449 2.87305 8.07129C2.87305 7.54492 2.44238 7.11426 1.91602 7.11426C1.38281 7.11426 0.952148 7.54492 0.952148 8.07129C0.952148 8.60449 1.38281 9.03516 1.91602 9.03516ZM5.1084 8.7207H14.3984C14.7607 8.7207 15.0479 8.43359 15.0479 8.07129C15.0479 7.70898 14.7607 7.42188 14.3984 7.42188H5.1084C4.74609 7.42188 4.45898 7.70898 4.45898 8.07129C4.45898 8.43359 4.74609 8.7207 5.1084 8.7207ZM1.91602 13.2324C2.44238 13.2324 2.87305 12.8018 2.87305 12.2686C2.87305 11.7422 2.44238 11.3115 1.91602 11.3115C1.38281 11.3115 0.952148 11.7422 0.952148 12.2686C0.952148 12.8018 1.38281 13.2324 1.91602 13.2324ZM5.1084 12.918H14.3984C14.7607 12.918 15.0479 12.6309 15.0479 12.2686C15.0479 11.9062 14.7607 11.6191 14.3984 11.6191H5.1084C4.74609 11.6191 4.45898 11.9062 4.45898 12.2686C4.45898 12.6309 4.74609 12.918 5.1084 12.918Z"></path></svg></span>Tools</th><td><span class="selected-value select-value-color-brown">Python</span></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesMultipleSelect"><path d="M1.91602 4.83789C2.44238 4.83789 2.87305 4.40723 2.87305 3.87402C2.87305 3.34766 2.44238 2.91699 1.91602 2.91699C1.38281 2.91699 0.952148 3.34766 0.952148 3.87402C0.952148 4.40723 1.38281 4.83789 1.91602 4.83789ZM5.1084 4.52344H14.3984C14.7607 4.52344 15.0479 4.23633 15.0479 3.87402C15.0479 3.51172 14.7607 3.22461 14.3984 3.22461H5.1084C4.74609 3.22461 4.45898 3.51172 4.45898 3.87402C4.45898 4.23633 4.74609 4.52344 5.1084 4.52344ZM1.91602 9.03516C2.44238 9.03516 2.87305 8.60449 2.87305 8.07129C2.87305 7.54492 2.44238 7.11426 1.91602 7.11426C1.38281 7.11426 0.952148 7.54492 0.952148 8.07129C0.952148 8.60449 1.38281 9.03516 1.91602 9.03516ZM5.1084 8.7207H14.3984C14.7607 8.7207 15.0479 8.43359 15.0479 8.07129C15.0479 7.70898 14.7607 7.42188 14.3984 7.42188H5.1084C4.74609 7.42188 4.45898 7.70898 4.45898 8.07129C4.45898 8.43359 4.74609 8.7207 5.1084 8.7207ZM1.91602 13.2324C2.44238 13.2324 2.87305 12.8018 2.87305 12.2686C2.87305 11.7422 2.44238 11.3115 1.91602 11.3115C1.38281 11.3115 0.952148 11.7422 0.952148 12.2686C0.952148 12.8018 1.38281 13.2324 1.91602 13.2324ZM5.1084 12.918H14.3984C14.7607 12.918 15.0479 12.6309 15.0479 12.2686C15.0479 11.9062 14.7607 11.6191 14.3984 11.6191H5.1084C4.74609 11.6191 4.45898 11.9062 4.45898 12.2686C4.45898 12.6309 4.74609 12.918 5.1084 12.918Z"></path></svg></span>데이터 출처</th><td><span class="selected-value select-value-color-blue">Kaggle</span></td></tr><tr class="property-row property-row-date"><th><span class="icon property-icon"><svg role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0" class="typesDate"><path d="M3.29688 14.4561H12.7031C14.1797 14.4561 14.9453 13.6904 14.9453 12.2344V3.91504C14.9453 2.45215 14.1797 1.69336 12.7031 1.69336H3.29688C1.82031 1.69336 1.05469 2.45215 1.05469 3.91504V12.2344C1.05469 13.6973 1.82031 14.4561 3.29688 14.4561ZM3.27637 13.1162C2.70898 13.1162 2.39453 12.8154 2.39453 12.2207V5.9043C2.39453 5.30273 2.70898 5.00879 3.27637 5.00879H12.71C13.2842 5.00879 13.6055 5.30273 13.6055 5.9043V12.2207C13.6055 12.8154 13.2842 13.1162 12.71 13.1162H3.27637ZM6.68066 7.38086H7.08398C7.33008 7.38086 7.41211 7.30566 7.41211 7.05957V6.66309C7.41211 6.41699 7.33008 6.3418 7.08398 6.3418H6.68066C6.44141 6.3418 6.35938 6.41699 6.35938 6.66309V7.05957C6.35938 7.30566 6.44141 7.38086 6.68066 7.38086ZM8.92285 7.38086H9.31934C9.56543 7.38086 9.64746 7.30566 9.64746 7.05957V6.66309C9.64746 6.41699 9.56543 6.3418 9.31934 6.3418H8.92285C8.67676 6.3418 8.59473 6.41699 8.59473 6.66309V7.05957C8.59473 7.30566 8.67676 7.38086 8.92285 7.38086ZM11.1582 7.38086H11.5547C11.8008 7.38086 11.8828 7.30566 11.8828 7.05957V6.66309C11.8828 6.41699 11.8008 6.3418 11.5547 6.3418H11.1582C10.9121 6.3418 10.8301 6.41699 10.8301 6.66309V7.05957C10.8301 7.30566 10.9121 7.38086 11.1582 7.38086ZM4.44531 9.58203H4.84863C5.09473 9.58203 5.17676 9.50684 5.17676 9.26074V8.86426C5.17676 8.61816 5.09473 8.54297 4.84863 8.54297H4.44531C4.20605 8.54297 4.12402 8.61816 4.12402 8.86426V9.26074C4.12402 9.50684 4.20605 9.58203 4.44531 9.58203ZM6.68066 9.58203H7.08398C7.33008 9.58203 7.41211 9.50684 7.41211 9.26074V8.86426C7.41211 8.61816 7.33008 8.54297 7.08398 8.54297H6.68066C6.44141 8.54297 6.35938 8.61816 6.35938 8.86426V9.26074C6.35938 9.50684 6.44141 9.58203 6.68066 9.58203ZM8.92285 9.58203H9.31934C9.56543 9.58203 9.64746 9.50684 9.64746 9.26074V8.86426C9.64746 8.61816 9.56543 8.54297 9.31934 8.54297H8.92285C8.67676 8.54297 8.59473 8.61816 8.59473 8.86426V9.26074C8.59473 9.50684 8.67676 9.58203 8.92285 9.58203ZM11.1582 9.58203H11.5547C11.8008 9.58203 11.8828 9.50684 11.8828 9.26074V8.86426C11.8828 8.61816 11.8008 8.54297 11.5547 8.54297H11.1582C10.9121 8.54297 10.8301 8.61816 10.8301 8.86426V9.26074C10.8301 9.50684 10.9121 9.58203 11.1582 9.58203ZM4.44531 11.7832H4.84863C5.09473 11.7832 5.17676 11.708 5.17676 11.4619V11.0654C5.17676 10.8193 5.09473 10.7441 4.84863 10.7441H4.44531C4.20605 10.7441 4.12402 10.8193 4.12402 11.0654V11.4619C4.12402 11.708 4.20605 11.7832 4.44531 11.7832ZM6.68066 11.7832H7.08398C7.33008 11.7832 7.41211 11.708 7.41211 11.4619V11.0654C7.41211 10.8193 7.33008 10.7441 7.08398 10.7441H6.68066C6.44141 10.7441 6.35938 10.8193 6.35938 11.0654V11.4619C6.35938 11.708 6.44141 11.7832 6.68066 11.7832ZM8.92285 11.7832H9.31934C9.56543 11.7832 9.64746 11.708 9.64746 11.4619V11.0654C9.64746 10.8193 9.56543 10.7441 9.31934 10.7441H8.92285C8.67676 10.7441 8.59473 10.8193 8.59473 11.0654V11.4619C8.59473 11.708 8.67676 11.7832 8.92285 11.7832Z"></path></svg></span>날짜</th><td><time>@2025년 1월 13일</time></td></tr><tr class="property-row property-row-text"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/link_gray.svg" style="width:14px;height:14px;display:block"/></span>코드보기 (github)</th><td><a href="https://github.com/Sangw-In-August/discount_coupon/blob/main/%ED%95%A0%EC%9D%B8%20%EC%BF%A0%ED%8F%B0%20%EB%B6%84%EC%84%9D%EC%BD%94%EB%93%9C.ipynb">https://github.com/Sangw-In-August/discount_coupon/blob/main/할인 쿠폰 분석코드.ipynb</a></td></tr></tbody></table></header><div class="page-body"><h1 id="184a0841-2618-80ad-878e-efcc66c960a0" class="block-color-blue_background">  프로젝트 개요</h1><p id="184a0841-2618-80dd-b315-feae2cd94121" class="">본 프로젝트는 “Predicting Coupon Redemption” 데이터세트를 활용하여 할인 쿠폰 사용 패턴을 분석하고, 종합적인 분석결과를 Tableau 대시보드에 시각화하여 직관적인 인사이트를 도출하는 것입니다.</p><p id="184a0841-2618-800a-bc44-e7a39cfa4226" class="">
+</p><h2 id="184a0841-2618-807f-8314-f90e2b768cd4" class="">1) 주요 질문</h2><ul id="184a0841-2618-8037-9d18-d2c680eff9d4" class="bulleted-list"><li style="list-style-type:disc"><strong>쿠폰 사용 패턴 분석:  어떤 조건하에서 고객들이 할인 프로모션에 더 민감하게 반응하는가?</strong><p id="185a0841-2618-80f9-a7a4-f9c173ad42be" class="">: 연령대, 성별, 가족 구성원 수 등 다양한 변수를 통해 고객이 어떤 조건에서 쿠폰을 더 자주 사용하는지 분석</p></li></ul><ul id="184a0841-2618-80bc-adbc-f8accbeaf033" class="bulleted-list"><li style="list-style-type:disc"><strong>쿠폰 사용 후 구매 패턴 변화 분석:  할인 쿠폰 프로모션 후 할인 쿠폰을 사용이 고객의 구매 행동(금액, 빈도 등)에 어떤 변화를 가져오는가?</strong><p id="185a0841-2618-8043-99cd-cd7055c52e60" class="">: 고객들이 할인 쿠폰을 사용한 후 고객별 매출의 변화, 구매 빈도가 어떻게 달라지는 지 분석</p></li></ul><p id="184a0841-2618-80c4-9164-e1e79fee584b" class="">
+</p><h2 id="184a0841-2618-8065-ae57-e5b5a093adcd" class="">2) 사용 데이터 소개</h2><p id="184a0841-2618-80d3-adc3-d6ace87d6b52" class=""><a href="https://www.kaggle.com/datasets/vasudeva009/predicting-coupon-redemption">Predicting Coupon Redemption</a> (Kaggle)</p><p id="184a0841-2618-80ab-bc3f-f6738ad64cdb" class="">: 이 데이터세트는 다양한 할인 쿠폰 캠페인에 대해 고객들이 쿠폰을 사용했는지 여부와 관련된 정보를 포함</p><figure id="184a0841-2618-80fd-970a-f1b33e2be294" class="image" style="text-align:left"><a href="image.png"><img style="width:624px" src="images/image.png"/></a></figure><p id="184a0841-2618-80dc-93d1-d42570fbd3ab" class="">
+</p><table id="184a0841-2618-80db-95c9-cf7f8c9fab30" class="simple-table"><thead class="simple-table-header"><tr id="184a0841-2618-8026-8c0e-c440d9542d4b"><th id="m@&gt;J" class="simple-table-header-color simple-table-header"><strong>테이블</strong></th><th id="rqmm" class="simple-table-header-color simple-table-header" style="width:483px"><strong>설명</strong></th></tr></thead><tbody><tr id="184a0841-2618-8095-b677-e8123e74ef06"><td id="m@&gt;J" class=""><strong>Train</strong></td><td id="rqmm" class="" style="width:483px">각 고객이 받은 쿠폰과 해당 쿠폰이 사용되었는지 여부를 포함하는 테이블</td></tr><tr id="184a0841-2618-805f-adf1-c84949d7a6e4"><td id="m@&gt;J" class=""><strong>Campaign Data</strong></td><td id="rqmm" class="" style="width:483px">각 캠페인에 대한 정보 (캠페인 시작일/종료일, 캠페인 유형)</td></tr><tr id="184a0841-2618-80f5-bad9-d029f7dc9bc6"><td id="m@&gt;J" class=""><strong>Coupon Item Mapping</strong></td><td id="rqmm" class="" style="width:483px">각 쿠폰이 어떤 상품에 대해 할인되는지에 대한 매핑정보</td></tr><tr id="184a0841-2618-8007-b10e-d9fe929ed036"><td id="m@&gt;J" class=""><strong>Customer Demographics</strong></td><td id="rqmm" class="" style="width:483px">고객의 인구 통계학적 정보 (나이, 결혼 여부, 소득 수준 포함)</td></tr><tr id="184a0841-2618-80ee-a566-d959a2e9e757"><td id="m@&gt;J" class=""><strong>Customer Transaction Data</strong></td><td id="rqmm" class="" style="width:483px">각 고객의 거래 정보 (구매 날짜, 구매 품목, 구매 금액 등)</td></tr><tr id="184a0841-2618-8023-bf97-e975f5a1b3d4"><td id="m@&gt;J" class=""><strong>Item Data</strong></td><td id="rqmm" class="" style="width:483px">판매되는 상품에 대한 정보 (상품 카테고리, 브랜드 등)</td></tr></tbody></table><p id="184a0841-2618-8044-8dcd-dff53eeb5ea0" class="">
+</p><h2 id="184a0841-2618-8082-a7ae-c9ab0fad210b" class="">3) 데이터 전처리 과정 요약</h2><ul id="184a0841-2618-8001-96ed-fa8623a53a09" class="bulleted-list"><li style="list-style-type:disc">변수 변환<ul id="185a0841-2618-800d-9181-ef543d85566b" class="bulleted-list"><li style="list-style-type:circle">날짜 관련 칼럼 datetime 형식으로 변환</li></ul><ul id="185a0841-2618-803c-8121-c6c6c7e30f9b" class="bulleted-list"><li style="list-style-type:circle">중복된 거래 데이터 제거 (2,916건)</li></ul></li></ul><ul id="185a0841-2618-80d9-b60d-ef7a2c32f99b" class="bulleted-list"><li style="list-style-type:disc">결측치 처리<ul id="185a0841-2618-8041-88e4-cb1a5c3f3037" class="bulleted-list"><li style="list-style-type:circle">결측이 있는 경우 해당 레코드는 분석 대상에서 제외: 결혼 여부를 묻는 변수의 경우 응답자에 한해서만 분석 진행 </li></ul></li></ul><p id="184a0841-2618-8095-963d-f323c6dc2117" class="">
+</p><p id="184a0841-2618-8024-bc16-fe30661f7a53" class="">
+</p><h1 id="184a0841-2618-8043-b3d6-e9aca6482898" class="block-color-blue_background">  분석 결과</h1><h2 id="184a0841-2618-80d2-93f7-ccc597365ba4" class="">1) 쿠폰 사용 패턴 분석</h2><h3 id="185a0841-2618-8022-ad72-f03cd0e810cc" class="">분석 목표</h3><p id="185a0841-2618-803a-b6e7-cb7a1b100c58" class="">: 연령대, 결혼 여부, 가족 구성원 수 등 다양한 변수를 통해 고객이 어떤 조건에서 쿠폰을 더 자주 사용하는지 확인</p><p id="185a0841-2618-8009-9a1b-e994c88d631f" class="">
+</p><h3 id="185a0841-2618-8026-ab61-df7e7dd40d24" class="">분석 방법</h3><p id="185a0841-2618-8026-8214-fea4eca273e1" class="">: 다양한 조건(연령대, 결혼 여부, 가족 구성원 수)에 따른 쿠폰 사용 비율을 시각화하고, 통계적으로 검정</p><p id="185a0841-2618-801b-8922-fd94e12360b7" class="">
+</p><h3 id="185a0841-2618-8023-959b-e60b4e064305" class="">분석 결과</h3><ul id="184a0841-2618-8029-a1ef-f43d2c02243f" class="bulleted-list"><li style="list-style-type:disc"><strong>전체 거래 중 할인 쿠폰을 사용한 거래 비율</strong></li></ul><figure id="185a0841-2618-8068-ae4e-e95f433b969b" class="image" style="text-align:left"><a href="image%201.png"><img style="width:398px" src="images/image%201.png"/></a></figure><p id="185a0841-2618-8002-90db-f8bc7c8c37d5" class="">　　- 분석 기간 동안 전체 거래 중 할인 쿠폰을 사용한 거래 비율은 약 0.9%</p><p id="185a0841-2618-8013-ab4d-f72024b5e271" class="">
+</p><ul id="185a0841-2618-8042-a0bd-c0586935b785" class="bulleted-list"><li style="list-style-type:disc"><strong>연령대별 쿠폰 사용</strong></li></ul><p id="185a0841-2618-8057-a032-fd6e6bd121b8" class="">　<strong>1) 시각화</strong></p><figure id="185a0841-2618-8063-99d0-c4545d484646" class="image" style="text-align:left"><a href="image%202.png"><img style="width:683px" src="images/image%202.png"/></a></figure><p id="187a0841-2618-80bd-9080-facde6104a25" class="">　　- 25세 이전의 어린 세대의 경우 다른 세대에 비해 할인 프로모션에 크게 민감하게 반응하지 않음</p><p id="187a0841-2618-80c4-a6cb-f47373a5d74c" class="">　　- 중장년층(46-55세) 세대의 쿠폰 사용 비율이 가장 도드라짐</p><p id="187a0841-2618-80d7-90e7-faeb216df42a" class="">
+</p><p id="185a0841-2618-80d7-8b16-c360b9db5f01" class="">　<strong>2) 카이제곱 검정 결과</strong></p><p id="185a0841-2618-806e-84f6-d04b8b1ffb6a" class="">H0(귀무가설): 연령대별 쿠폰 사용 패턴에 차이가 없다.</p><p id="185a0841-2618-807a-8ad1-ed2ba4aae1cd" class="">H1(대립가설): 연령대별 쿠폰 사용 패턴에 차이가 있다.</p><table id="185a0841-2618-8077-9b94-d11d139818ae" class="simple-table"><thead class="simple-table-header"><tr id="185a0841-2618-80f8-843c-f0bbe073c4e5"><th id="UyUp" class="simple-table-header-color simple-table-header"><strong>Statistic</strong></th><th id="pANT" class="simple-table-header-color simple-table-header"><strong>Value</strong></th></tr></thead><tbody><tr id="185a0841-2618-8065-82ac-e1e0921f3f24"><td id="UyUp" class="">Chi2 통계량</td><td id="pANT" class="">16.269269</td></tr><tr id="185a0841-2618-80d6-bc21-c7ba08e5403d"><td id="UyUp" class="">p-value</td><td id="pANT" class="">0.006116</td></tr></tbody></table><p id="185a0841-2618-80f8-bfe6-ec81bf7b6e12" class="">: 카이제곱 검정 결과 귀무가설을 기각하여 연령대별로 쿠폰 사용 패턴에 유의미한 차이가 있음.</p><p id="185a0841-2618-8028-ab0e-d1e05ef3af16" class="">
+</p><ul id="185a0841-2618-8080-966d-c5db3ce15306" class="bulleted-list"><li style="list-style-type:disc"><strong>결혼 상태별 쿠폰 사용</strong></li></ul><p id="185a0841-2618-80bb-b72e-cc330286a3dd" class="">　<strong>1) 시각화</strong></p><figure id="185a0841-2618-80bd-83f9-f060ea9ae70e" class="image" style="text-align:left"><a href="image%203.png"><img style="width:373px" src="images/image%203.png"/></a></figure><p id="187a0841-2618-8059-a2a0-e1fcc3297bfe" class="">　　- 기혼 고객이 미혼 고객에 비해 쿠폰 사용 비율이 더 높게 나타남</p><p id="187a0841-2618-8031-ac7e-d249470a4263" class="">
+</p><p id="185a0841-2618-8078-a4df-e1bfd0eedd6e" class="">　<strong>2) 카이제곱 검정 결과</strong></p><table id="185a0841-2618-8051-af58-d90c3fc938b3" class="simple-table"><thead class="simple-table-header"><tr id="185a0841-2618-8081-8377-cae4f0db9876"><th id="p?sr" class="simple-table-header-color simple-table-header"><strong>Statistic</strong></th><th id="aBvN" class="simple-table-header-color simple-table-header"><strong>Value</strong></th></tr></thead><tbody><tr id="185a0841-2618-8006-ab0e-d924f10c9e01"><td id="p?sr" class="">Chi2 통계량</td><td id="aBvN" class="">3.019551</td></tr><tr id="185a0841-2618-80ce-b123-d52ba83389bd"><td id="p?sr" class="">p-value</td><td id="aBvN" class="">0.082266</td></tr></tbody></table><p id="185a0841-2618-8099-aeaa-c48dff4371a7" class="">: 시각적으로는 기혼과 미혼의 쿠폰 사용 비율에 차이가 있는 것 처럼 보이나, 카이제곱 검정 결과 귀무가설을 기각하지 못하여 결혼 여부별로 쿠폰 사용 패턴에 유의미한 차이가 없다고 볼 수 있음</p><p id="185a0841-2618-80a0-9dbf-db08243ea838" class="">
+</p><ul id="185a0841-2618-8016-a352-ed5c92ab3635" class="bulleted-list"><li style="list-style-type:disc"><strong>가족 구성원 수별 쿠폰 사용</strong></li></ul><p id="185a0841-2618-8077-8f27-cf5cf1553ae7" class="">　<strong>1) 시각화</strong></p><figure id="185a0841-2618-806f-a88c-e4b90fa4cd11" class="image"><a href="image%204.png"><img style="width:672px" src="images/image%204.png"/></a></figure><p id="187a0841-2618-801a-841b-d9b6519f3ed7" class="">　　- 가족 크기가 1~3인 가구의 경우에는 쿠폰 사용 비율이 유의미하게 높게 나타나지 않음 </p><p id="187a0841-2618-8064-a181-ffcdb70abc2e" class="">　　- 4인 이상 가구의 경우 쿠폰 사용 비율이 높게 나타남</p><p id="187a0841-2618-80f8-b1d4-fba6b17b7d60" class="">
+</p><p id="185a0841-2618-80d4-80e8-d66850825985" class="">　<strong>2) 카이제곱 검정 결과</strong></p><p id="185a0841-2618-8036-b264-d414bb82fc3b" class="">H0(귀무가설): 가족 구성원 수에 따른 쿠폰 사용 패턴에 차이가 없다.</p><p id="185a0841-2618-80d5-ba64-e0432c8483c2" class="">H1(대립가설): 가족 구성원 수에 따른 쿠폰 사용 패턴에 차이가 있다.</p><table id="185a0841-2618-806d-976e-e3fb8b957aff" class="simple-table"><thead class="simple-table-header"><tr id="185a0841-2618-8043-a955-f62e6bde87f9"><th id="p?sr" class="simple-table-header-color simple-table-header"><strong>Statistic</strong></th><th id="aBvN" class="simple-table-header-color simple-table-header"><strong>Value</strong></th></tr></thead><tbody><tr id="185a0841-2618-80e0-a173-ea67badbe09f"><td id="p?sr" class="">Chi2 통계량</td><td id="aBvN" class="">16.884339</td></tr><tr id="185a0841-2618-80cb-9eab-e83706803c44"><td id="p?sr" class="">p-value</td><td id="aBvN" class="">0.002036</td></tr></tbody></table><p id="185a0841-2618-8082-b3c8-e0f4af91c73a" class="">: 카이제곱 검정 결과 귀무가설을 기각하여 가족 구성원 수 별로 쿠폰 사용 패턴에 유의미한 차이가 있음.</p><p id="185a0841-2618-801f-bd58-c30921e16105" class="">　　- 가족 구성원 수가 4인 이상인 경우 할인 프로모션에 민감하게 반응</p><p id="185a0841-2618-802b-990f-f8beab40621f" class="">
+</p><hr id="185a0841-2618-8089-9c9c-cba476b731f6"/><h2 id="184a0841-2618-80dd-8d2e-dc50da011288" class="">2) 쿠폰 사용 후 구매 패턴 변화 분석</h2><h3 id="185a0841-2618-80e3-b571-d32317ead1b3" class="">분석 목표</h3><p id="184a0841-2618-8042-abb8-f9b348f13a42" class="">: 할인 쿠폰 사용 전후 고객의 구매 패턴 변화를 분석하여 할인 프로모션이 고객의 구매 금액과 빈도를 증가시켜 어떻게 매출에 기여하는지 평가</p><p id="185a0841-2618-804d-b239-f9ff60b9a1e0" class="">
+</p><h3 id="185a0841-2618-8062-a285-dd21256f46c9" class="">분석 방법</h3><ul id="185a0841-2618-80fd-b5d8-e64940e711ca" class="bulleted-list"><li style="list-style-type:disc"><strong>분석 대상자</strong><p id="185a0841-2618-8097-8864-c19104a1d7e7" class="">: 프로모션 기간 동안 할인 쿠폰을 사용한 이력이 있으며, 첫 할인 쿠폰 사용 시점 전후 2개월간 구매 이력을 분석할 수 있는 고객</p></li></ul><ul id="185a0841-2618-806f-b112-cebbadf3de9a" class="bulleted-list"><li style="list-style-type:disc"><strong>분석 방법</strong><p id="185a0841-2618-808b-89b6-caaffe448e13" class="">: 고객의 첫 할인 쿠폰 사용 시점을 기준으로 이전 2개월과 이후 2개월 동안 고객별 총 매출 금액과 구매 빈도를 비교하여, 전후 차이를 시각화 및 통계적으로 검정<br/><br/></p></li></ul><h3 id="185a0841-2618-80cc-9bdb-d1bd9aabc314" class="">분석 결과</h3><ul id="185a0841-2618-80bc-bae2-f47c69e15077" class="bulleted-list"><li style="list-style-type:disc"><strong>총 매출 금액 변화</strong></li></ul><figure id="185a0841-2618-8059-9256-f9ecedb926c2" class="image" style="text-align:left"><a href="image%205.png"><img style="width:480px" src="images/image%205.png"/></a></figure><p id="185a0841-2618-8054-8863-df8b58569b26" class="">　　- 첫 할인 쿠폰 사용 후 고객당 평균 매출액 약 34.5% 증가</p><p id="185a0841-2618-808f-b4de-e37c90469355" class="">
+</p><ul id="185a0841-2618-80c1-9c1f-faecbc633d50" class="bulleted-list"><li style="list-style-type:disc"><strong>구매 빈도 변화</strong></li></ul><figure id="185a0841-2618-809c-9231-d31734efae2b" class="image" style="text-align:left"><a href="image%206.png"><img style="width:480px" src="images/image%206.png"/></a></figure><p id="185a0841-2618-80dc-b39a-d235c3902b6b" class="">　　- 첫 할인 쿠폰 사용 후 고객당 평균 구매빈도 약 100회 → 130회로약 30% 증가</p><p id="185a0841-2618-80eb-a6b6-c670ea40b64a" class="">
+</p><ul id="185a0841-2618-8051-82cb-ed86fc26a418" class="bulleted-list"><li style="list-style-type:disc"><strong>통계 검정 결과(T-test)</strong></li></ul><table id="185a0841-2618-80df-8a64-fc75e2c03e5e" class="simple-table"><thead class="simple-table-header"><tr id="185a0841-2618-80b0-91d8-fdfc56ee8287"><th id="AbDN" class="simple-table-header-color simple-table-header" style="width:153px"><strong>가설 내용</strong></th><th id="AR{i" class="simple-table-header-color simple-table-header"><strong>통계 검정 결과 (P-value)</strong></th></tr></thead><tbody><tr id="185a0841-2618-80a9-8435-d052f7f7aa3b"><td id="AbDN" class="" style="width:153px">구매 금액 변화</td><td id="AR{i" class="">&lt;0.001***</td></tr><tr id="185a0841-2618-806b-8550-e1fb86a0c4f0"><td id="AbDN" class="" style="width:153px">구매 빈도 변화</td><td id="AR{i" class="">&lt;0.001***</td></tr></tbody></table><p id="185a0841-2618-8068-b785-f4744a409f3c" class="">⇒ 첫 쿠폰 사용 이후 구매 금액 및 구매 빈도의 변화에 통계적으로 유의미한 변화가 있으며, 할인 쿠폰을 사용한 고객은 할인 쿠폰 사용 후 해당 플랫폼에서 더 많은 지출 및 구매 행위를 한다</p><p id="187a0841-2618-8054-97c8-ea1b0be45a20" class="">
+</p><p id="185a0841-2618-80b2-bbef-d1d7b801d19e" class="">
+</p><h1 id="184a0841-2618-8033-a30a-d67b0ab4d225" class="block-color-blue_background">  결론 및 제언</h1><h2 id="187a0841-2618-806f-96af-fc82ebfa9ffe" class="">1) 결론</h2><h3 id="187a0841-2618-80c3-bcfa-e7fc8062e44a" class="">쿠폰 사용 패턴 분석</h3><ul id="187a0841-2618-8013-93d6-ef44a8cfe873" class="bulleted-list"><li style="list-style-type:disc">25세 이상 70세 미만, 특히 중장년층(46-55세)과 가족 구성원이 많은 고객은 할인 프로모션에 더 민감하게 반응</li></ul><ul id="187a0841-2618-80b3-bf92-ce9e67f69a2c" class="bulleted-list"><li style="list-style-type:disc">결혼 여부는 쿠폰 사용 패턴에 큰 영향을 미치지 않음</li></ul><p id="187a0841-2618-80b0-8b42-d720645482ee" class="">
+</p><h3 id="187a0841-2618-8014-8cf3-eb23603acf3e" class="">쿠폰 사용 후 구매 행동 변화</h3><ul id="187a0841-2618-8036-ac35-c8037fa89680" class="bulleted-list"><li style="list-style-type:disc">첫 쿠폰 사용 이후 총 매출 약 34.5%, 구매 빈도 약 30% 증가</li></ul><ul id="187a0841-2618-8019-9ee0-eeb6a968c24e" class="bulleted-list"><li style="list-style-type:disc">통계적으로 유의미한 변화 확인(p-value &lt; 0.05)</li></ul><p id="187a0841-2618-80f1-9e78-c07664b634d6" class="">
+</p><h2 id="187a0841-2618-80f2-9591-c32896940eb0" class="">2) 제언</h2><ul id="187a0841-2618-804a-a403-e4bdad4719bd" class="bulleted-list"><li style="list-style-type:disc"><strong>타겟 마케팅 강화</strong><ul id="187a0841-2618-8098-9b6d-d44b821062e8" class="bulleted-list"><li style="list-style-type:circle">어린 청년 보다는 25세 이상, 특히 중장년층 대상으로 연령대별 타겟 아이템에 대한 프로모션 진행</li></ul></li></ul><ul id="187a0841-2618-807f-876f-d2864bae5f5c" class="bulleted-list"><li style="list-style-type:disc"><strong>장기적인 고객 분석</strong><ul id="187a0841-2618-8028-bd85-f0d6e639d25b" class="bulleted-list"><li style="list-style-type:circle">첫 쿠폰 사용 후 매출 상승 효과가 지속되는지 장기적인 분석 진행</li></ul></li></ul><p id="187a0841-2618-806b-bbca-db9036306a3b" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
